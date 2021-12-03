@@ -1,0 +1,180 @@
+package TempConverter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+
+/**
+ * Small temperature conversion app with the ability to go between
+ * the three main temperature options of Celcius, Kelvin, and Farenheit
+ * 
+ * 
+ * Author: Michael Legg
+ */
+
+
+public class TempConverter {
+	
+	private TempGUI gui = new TempGUI();
+	private AboutWindow about = new AboutWindow();
+	private ErrorMessage error = new ErrorMessage();
+	private MenuHandler mHandler = new MenuHandler();
+	private ButtonHandler bHandler = new ButtonHandler();
+	
+	private boolean unitsSet;
+	private String units;
+	private String response;
+	private double initTemp, convTemp;
+	
+
+	public static void main(String[] args) {
+
+		new TempConverter();
+		
+	}
+	
+	public TempConverter() {
+		
+		units = "";
+		unitsSet = false;
+		gui.TempGUI(mHandler, bHandler);
+		
+	}
+	
+	
+	public void setC2F() {
+		unitsSet = true;
+		units = "C2F";
+		gui.lblStartUnit.setText("°C");
+		gui.lblEndUnit.setText("°F");
+	}
+	
+	public void setC2K() {
+		unitsSet = true;
+		units = "C2K";
+		gui.lblStartUnit.setText("°C");
+		gui.lblEndUnit.setText("°K");
+	}
+	
+	public void setF2K() {
+		unitsSet = true;
+		units = "F2K";
+		gui.lblStartUnit.setText("°F");
+		gui.lblEndUnit.setText("°K");
+	}
+	
+	public void setF2C() {
+		unitsSet = true;
+		units = "F2C";
+		gui.lblStartUnit.setText("°F");
+		gui.lblEndUnit.setText("°C");
+	}
+	
+	public void setK2C() {
+		unitsSet = true;
+		units = "K2C";
+		gui.lblStartUnit.setText("°K");
+		gui.lblEndUnit.setText("°C");
+	}
+	
+	public void setK2F() {
+		unitsSet = true;
+		units = "K2F";
+		gui.lblStartUnit.setText("°K");
+		gui.lblEndUnit.setText("°F");
+	}
+	
+	private void testInput() {
+		
+	}
+	
+	public void Convert() {
+		
+	}
+	
+	
+	
+	public class MenuHandler implements MenuListener{
+
+		public void menuSelected(MenuEvent e) {
+
+			about.AboutWindow();
+			
+		}
+
+		public void menuDeselected(MenuEvent e) {
+		}
+		public void menuCanceled(MenuEvent e) {
+		}
+		
+	}
+	
+	
+	public class ButtonHandler implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			
+			String btn = String.valueOf(e);
+			btn = GetButton.GetButton(btn);
+			
+			switch (btn) {
+				case "°C to °F":
+					setC2F();
+					break;
+					
+				case "°C to °K":
+					setC2K();
+					break;
+					
+				case "°F to °K":
+					setF2K();
+					break;
+	
+				case "°F to °C":
+					setF2C();
+					break;
+	
+				case "°K to °C":
+					setK2C();
+					break;
+	
+				case "°K to °F":
+					setK2F();
+					break;
+	
+				case "Convert":
+					if (unitsSet == true) {
+						testInput();
+					}
+					else {
+						error.ErrorMessage();
+						error.message.setText("Units need to be set first");
+					}
+					
+					break;
+					
+				default:
+					System.out.println("Button press error");
+					
+			}
+			
+		}
+		
+	}
+	
+	
+	public static class GetButton {
+		
+		public static String GetButton(String e) {
+			
+			int subStrStart = e.lastIndexOf("cmd=") + 4;
+			int subStrEnd = e.indexOf(',', subStrStart);
+			e = e.substring(subStrStart, subStrEnd);
+			
+			return e;
+		 }
+		 
+	}
+}
