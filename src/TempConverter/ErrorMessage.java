@@ -1,5 +1,4 @@
 package TempConverter;
-import java.awt.*;
 import javax.swing.*;
 
 public class ErrorMessage {
@@ -7,7 +6,7 @@ public class ErrorMessage {
 	JFrame eFrame;
 	JLabel message;
 	
-	public void ErrorMessage() {
+	public void Error() {
 		
 		eFrame = new JFrame("Error");
 		eFrame.setBounds(775, 225, 225, 100);

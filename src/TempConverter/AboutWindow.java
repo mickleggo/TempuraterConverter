@@ -1,5 +1,4 @@
 package TempConverter;
-import java.awt.*;
 import javax.swing.*;
 
 public class AboutWindow {
@@ -8,7 +7,7 @@ public class AboutWindow {
 	JLabel message;
 	String details;
 	
-	public void AboutWindow() {
+	public void About() {
 		
 		details = "Version 1.0\n\n\n"
 				+ "Temperature Converter.\n"

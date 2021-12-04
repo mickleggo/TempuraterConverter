@@ -1,7 +1,6 @@
 package TempConverter;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 import TempConverter.TempConverter.ButtonHandler;
 import TempConverter.TempConverter.MenuHandler;
 
@@ -15,7 +14,7 @@ public class TempGUI {
 	JTextPane txtGetValue, txtConvertValue;
 	JLabel lblStartUnit, lblEndUnit;
 	
-	public void TempGUI(MenuHandler mHandler, ButtonHandler bHandler) {
+	public void GUI(MenuHandler mHandler, ButtonHandler bHandler) {
 		
 	/**************************************************************************************************/
 	/* Initial Window */
@@ -73,7 +72,6 @@ public class TempGUI {
 		txtGetValue = new JTextPane();
 		txtGetValue.setBounds(50, 190, 290, 55);
 		txtGetValue.setFont(new Font("Dialog", Font.BOLD, 35));
-		txtGetValue.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		txtGetValue.setAutoscrolls(false);
 		frame.getContentPane().add(txtGetValue);
 		disableKeys(txtGetValue.getInputMap());
@@ -97,7 +95,6 @@ public class TempGUI {
 		txtConvertValue.setBounds(50, 320, 290, 55);
 		txtConvertValue.setFont(new Font("Dialog", Font.BOLD, 35));
 		txtConvertValue.setBackground(Color.decode("#D4D4D4"));
-		txtConvertValue.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		txtConvertValue.setEditable(false);
 		frame.getContentPane().add(txtConvertValue);
 		

@@ -1,8 +1,6 @@
 package TempConverter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -39,7 +37,7 @@ public class TempConverter {
 		
 		units = "";
 		unitsSet = false;
-		gui.TempGUI(mHandler, bHandler);
+		gui.GUI(mHandler, bHandler);
 		
 	}
 	
@@ -88,19 +86,131 @@ public class TempConverter {
 	
 	private void testInput() {
 		
+		response = gui.txtGetValue.getText();
+		initTemp = Double.NaN;
+		
+		try {
+			response.trim();
+			initTemp = Double.parseDouble(response);
+			System.out.println(initTemp);
+		}
+		catch (Exception e) {
+			gui.txtGetValue.setText("");
+			error.Error();
+			error.message.setText("Unrecognised value input.");
+		}
+		
+		if ( Double.isNaN(initTemp) ) {
+			
+		}
+		else {
+			Convert();
+		}
+		
+		
 	}
 	
 	public void Convert() {
 		
+		switch (units) {
+			
+			case "C2F" : {
+				if (initTemp < Double.valueOf(-273.15)) {
+					initTemp = Double.valueOf(-273.15);
+					gui.txtGetValue.setText(String.valueOf(initTemp));
+				}
+				convTemp = C2F(initTemp);
+				break;
+			}
+			
+			case "C2K" : {
+				if (initTemp < Double.valueOf(-273.15)) {
+					initTemp = Double.valueOf(-273.15);
+					gui.txtGetValue.setText(String.valueOf(initTemp));
+				}
+				convTemp = C2K(initTemp);
+				break;
+			}
+
+			case "F2K" : {
+				if (initTemp < Double.valueOf(-459.66999999999999999)) {
+					initTemp = Double.valueOf(-459.66999999999999999);
+					gui.txtGetValue.setText(String.valueOf(initTemp));
+				}
+				convTemp = F2C(initTemp);
+				convTemp = C2K(convTemp);
+				break;
+			}
+
+			case "F2C" : {
+				if (initTemp < Double.valueOf(-459.66999999999999999)) {
+					initTemp = Double.valueOf(-459.66999999999999999);
+					gui.txtGetValue.setText(String.valueOf(initTemp));
+				}
+				convTemp = F2C(initTemp);
+				break;
+			}
+
+			case "K2C" : {
+				if (initTemp < Double.valueOf(0.0)) {
+					initTemp = Double.valueOf(0.0);
+					gui.txtGetValue.setText(String.valueOf(initTemp));
+				}
+				convTemp = K2C(initTemp);
+				break;
+			}
+
+			case "K2F" : {
+				if (initTemp < Double.valueOf(0.0)) {
+					initTemp = Double.valueOf(0.0);
+					gui.txtGetValue.setText(String.valueOf(initTemp));
+				}
+				convTemp = K2C(initTemp);
+				convTemp = C2F(convTemp);
+				break;
+			}
+			
+			default : {
+				System.out.println("Error with conversion");
+			}
+		}
+		
+		gui.txtConvertValue.setText(String.valueOf(convTemp));
+		
 	}
 	
+	
+	
+	public double C2K(double temp) {
+		double convert = 0d;
+		convert = (temp + 273.15);
+		return convert;
+	}
+	
+	public double K2C(double temp) {
+		double convert = 0d;
+		convert = temp - 273.15;
+		return convert;
+	}
+	
+	public double C2F(double temp) {
+		double convert = 0d;
+		convert = (((temp * 9) / 5) + 32 );
+		return convert;
+	}
+	
+	public double F2C(double temp) {
+		double convert = 0d;
+		convert = (((temp - 32) * 5 ) / 9 );
+		return convert;
+	}	
 	
 	
 	public class MenuHandler implements MenuListener{
 
 		public void menuSelected(MenuEvent e) {
 
-			about.AboutWindow();
+			about.About();
 			
 		}
 
@@ -117,7 +227,7 @@ public class TempConverter {
 		public void actionPerformed(ActionEvent e) {
 			
 			String btn = String.valueOf(e);
-			btn = GetButton.GetButton(btn);
+			btn = GetButton.ButtonSubstring(btn);
 			
 			switch (btn) {
 				case "°C to °F":
@@ -149,7 +259,7 @@ public class TempConverter {
 						testInput();
 					}
 					else {
-						error.ErrorMessage();
+						error.Error();
 						error.message.setText("Units need to be set first");
 					}
 					
@@ -167,7 +277,7 @@ public class TempConverter {
 	
 	public static class GetButton {
 		
-		public static String GetButton(String e) {
+		public static String ButtonSubstring(String e) {
 			
 			int subStrStart = e.lastIndexOf("cmd=") + 4;
 			int subStrEnd = e.indexOf(',', subStrStart);
