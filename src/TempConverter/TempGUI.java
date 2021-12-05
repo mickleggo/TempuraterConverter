@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 import TempConverter.TempConverter.ButtonHandler;
 import TempConverter.TempConverter.MenuHandler;
+import TempConverter.TempConverter.TextHandler;
 
 
 public class TempGUI {
@@ -14,7 +15,7 @@ public class TempGUI {
 	JTextPane txtGetValue, txtConvertValue;
 	JLabel lblStartUnit, lblEndUnit;
 	
-	public void GUI(MenuHandler mHandler, ButtonHandler bHandler) {
+	public void GUI(MenuHandler mHandler, ButtonHandler bHandler, TextHandler tHandler) {
 		
 	/**************************************************************************************************/
 	/* Initial Window */
@@ -72,9 +73,11 @@ public class TempGUI {
 		txtGetValue = new JTextPane();
 		txtGetValue.setBounds(50, 190, 290, 55);
 		txtGetValue.setFont(new Font("Dialog", Font.BOLD, 35));
+		txtGetValue.addKeyListener(tHandler);
 		txtGetValue.setAutoscrolls(false);
 		frame.getContentPane().add(txtGetValue);
 		disableKeys(txtGetValue.getInputMap());
+		
 		lblStartUnit = new JLabel("", SwingConstants.CENTER);
 		lblStartUnit.setBounds(360, 190, 40, 55);
 		lblStartUnit.setFont(new Font("Dialog", Font.BOLD, 35));
