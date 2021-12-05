@@ -1,6 +1,9 @@
 package TempConverter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -20,6 +23,7 @@ public class TempConverter {
 	private ErrorMessage error = new ErrorMessage();
 	private MenuHandler mHandler = new MenuHandler();
 	private ButtonHandler bHandler = new ButtonHandler();
+	private TextHandler tHandler = new TextHandler();
 	
 	private boolean unitsSet;
 	private String units;
@@ -37,7 +41,7 @@ public class TempConverter {
 		
 		units = "";
 		unitsSet = false;
-		gui.GUI(mHandler, bHandler);
+		gui.GUI(mHandler, bHandler, tHandler);
 		
 	}
 	
@@ -273,6 +277,31 @@ public class TempConverter {
 		}
 		
 	}
+	
+	public class TextHandler implements KeyListener {
+
+		public void keyPressed(KeyEvent e) {
+			if ( e.getKeyCode() == 10 ) {
+				if (unitsSet == true) {
+					testInput();
+				}
+				else {
+					error.Error();
+					error.message.setText("Units need to be set first");
+				}
+			}
+			else {
+			}
+			
+		}
+
+		public void keyReleased(KeyEvent e) {
+		}
+		public void keyTyped(KeyEvent e) {
+		}
+		
+	}
+	
 	
 	
 	public static class GetButton {
