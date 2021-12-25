@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
 
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -24,6 +25,8 @@ public class TempConverter {
 	private MenuHandler mHandler = new MenuHandler();
 	private ButtonHandler bHandler = new ButtonHandler();
 	private TextHandler tHandler = new TextHandler();
+	
+	DecimalFormat df = new DecimalFormat("##0.####E0");
 	
 	private boolean unitsSet;
 	private String units;
@@ -96,7 +99,6 @@ public class TempConverter {
 		try {
 			response.trim();
 			initTemp = Double.parseDouble(response);
-			System.out.println(initTemp);
 		}
 		catch (Exception e) {
 			gui.txtGetValue.setText("");
@@ -137,8 +139,8 @@ public class TempConverter {
 			}
 
 			case "F2K" : {
-				if (initTemp < Double.valueOf(-459.66999999999999999)) {
-					initTemp = Double.valueOf(-459.66999999999999999);
+				if (initTemp < Double.valueOf(-459.67)) {
+					initTemp = Double.valueOf(-459.67);
 					gui.txtGetValue.setText(String.valueOf(initTemp));
 				}
 				convTemp = F2C(initTemp);
@@ -147,8 +149,8 @@ public class TempConverter {
 			}
 
 			case "F2C" : {
-				if (initTemp < Double.valueOf(-459.66999999999999999)) {
-					initTemp = Double.valueOf(-459.66999999999999999);
+				if (initTemp < Double.valueOf(-459.67)) {
+					initTemp = Double.valueOf(-459.67);
 					gui.txtGetValue.setText(String.valueOf(initTemp));
 				}
 				convTemp = F2C(initTemp);
@@ -179,10 +181,9 @@ public class TempConverter {
 			}
 		}
 		
-		gui.txtConvertValue.setText(String.valueOf(convTemp));
+		gui.txtConvertValue.setText(df.format(convTemp));
 		
 	}
-	
 	
 	
 	public double C2K(double temp) {
